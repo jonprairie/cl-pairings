@@ -46,12 +46,17 @@
   (abs (- (getf p1 :rating) (getf p2 :rating))))
 
 (defun get-prev-played (p1 p2)
-  (if (member (getf p1 :index) (getf p2 :opps)) 1 0))
+  (if (and (not (getf p1 :is-bye))
+	   (not (getf p2 :is-bye))
+	   (member (getf p1 :index) (getf p2 :opps)))
+      1 0))
 
-;; this currently is being handled by an extra player entry passed into the data-table
-;; representing the bye. the bye "player" has the appropriate :opps entries set so
-;; the get-prev-played weight should apply.
-(defun get-prev-bye (p1 p2) 0)
+(defun get-prev-bye (p1 p2)
+  (if (or (and (getf p1 :is-bye)
+	       (getf p2 :bye))
+	  (and (getf p2 :is-bye)
+	       (getf p1 :bye)))
+      1 0))
 
 (defun get-strong-color-mismatch (p1 p2)
   (if (or (and (>= (getf p1 :color-pref) 2)
@@ -67,6 +72,16 @@
 	       (<= (getf p2 :color-pref) -1)))
       1 0))
 
-(defun get-strong-color-streak (p1 p2) 0)
+(defun get-strong-color-streak (p1 p2)
+  (let ((p1-seq (getf p1 :color-seq))
+	(p2-seq (getf p2 :color-seq)))
+    (if (and (not (null p1-seq))
+	     (not (null p2-seq))
+	     (eql (first p1-seq) (second p1-seq)
+		  (first p2-seq) (second p2-seq)))
+	1 0)))
 
-(defun get-weak-color-streak (p1 p2) 0)
+(defun get-weak-color-streak (p1 p2)
+  (if (eql (first (getf p1 :color-seq))
+	   (first (getf p2 :color-seq)))
+      1 0))

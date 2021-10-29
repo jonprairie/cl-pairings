@@ -77,8 +77,9 @@
 	(p2-seq (getf p2 :color-seq)))
     (if (and (not (null p1-seq))
 	     (not (null p2-seq))
-	     (eql (first p1-seq) (second p1-seq)
-		  (first p2-seq) (second p2-seq)))
+	     (eql (first p1-seq) (second p1-seq))
+	     (eql (first p2-seq) (second p2-seq))
+	     (eql (first p1-seq) (first p2-seq)))
 	1 0)))
 
 (defun get-weak-color-streak (p1 p2)

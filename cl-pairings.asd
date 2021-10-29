@@ -1,6 +1,6 @@
-(asdf:defsystem #:ctj
-  :name "Chess: The Journey"
-  :depends-on (:alexandria :serapeum :bknr.datastore :sqlite :defclass-std :cl-uci :queen :jonathan :cl-randist :ppath :cl-permutation :verbose :cl-ini :cl-csv :cl-geocode :cffi) ;simple-tasks? :bordeaux-threads? :opticl? :yason? :qtools :qtcore :qtgui 
+(asdf:defsystem #:cl-pairings
+  :name "cl-pairings"
+  :depends-on (:alexandria :serapeum :cffi)
   :pathname "src/"
   :serial t
   :components

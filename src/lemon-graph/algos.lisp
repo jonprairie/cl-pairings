@@ -1,7 +1,6 @@
-(in-package #:lib.lemon-graph)
+(in-package #:lemon-graph)
 
 
-(pushnew (host:get-lib-path "lemon-graph/lib/") cffi:*foreign-library-directories*)
 (defparameter *lemon-library* nil)
 
 
@@ -10,12 +9,6 @@
     (cffi:define-foreign-library liblemonc
       (t (:default "liblemonc")))
     (setf *lemon-library* (cffi:use-foreign-library liblemonc))))
-
-(defun save-graph (graph)
-  "GRAPH is a string in lemon graph format with an EDGES column labeled WEIGHTS"
-  (with-open-file (s (host:get-install-path "test_graph.lgf") :direction :output :if-exists :supersede)
-    (format s "~a" graph))
-  graph)
 
 (defun build-lgf (node-num edges)
   (format nil "@nodes~%label~%~{~a~%~}~%@edges~%        weights~%~{~{~3a ~3a ~$~}~%~}"

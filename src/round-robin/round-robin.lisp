@@ -1,4 +1,4 @@
-(in-package #:lib.round-robin)
+(in-package #:round-robin)
 
 (defun pair (n rnd)
   (partition

@@ -1,5 +1,4 @@
-(defpackage #:ctj.lib.round-robin
-  (:nicknames #:lib.round-robin)
+(defpackage #:round-robin
   (:use #:cl
 	#:alexandria
 	#:serapeum)

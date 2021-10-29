@@ -1,11 +1,4 @@
-(defpackage #:ctj.lib.lemon-graph
-  (:nicknames #:lib.lemon-graph)
-  ;; (:local-nicknames (#:a #:alexandria)
-  ;; 		    (#:s #:serapeum))
-  ;; (:use #:cl
-  ;; 	#:alexandria
-  ;; 	#:serapeum)
-  ;; p(:shadowing-import-from :alexandria "COMPOSE")
+(defpackage #:lemon-graph
   (:use #:cl)
   (:export #:build-lgf
 	   #:get-max-weighted-matching))

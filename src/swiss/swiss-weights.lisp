@@ -1,4 +1,4 @@
-(in-package #:lib.swiss)
+(in-package #:swiss)
 
 
 (defparameter *max-weight* 10000)

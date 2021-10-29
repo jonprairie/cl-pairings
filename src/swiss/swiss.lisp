@@ -1,7 +1,7 @@
-(in-package #:lib.swiss)
+(in-package #:swiss)
 
 
-(defun pair2 (data-table n)
+(defun pair (data-table n)
   (mvlet* ((final-table bye-index (add-bye data-table))
 	   (pair-weights (assign-weights final-table))
 	   (lgf (lib.lemon-graph:build-lgf (length final-table) pair-weights)))
@@ -9,6 +9,8 @@
 	(mapcar (op (modify-bye _1 bye-index)) _)
 	(partition #'is-not-bye _))))
 
+;; this needs to happen here because when we build a matching later we don't account
+;; for the "leftover" player if they've already had a bye
 (defun add-bye (data-table)
   "add an entry to data-table for the bye if the number of players is odd,
 modifying each row's :opps value to include the bye index if they've previously had a bye."

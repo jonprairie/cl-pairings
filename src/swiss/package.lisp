@@ -1,9 +1,5 @@
-(defpackage #:ctj.lib.swiss
-  (:nicknames #:lib.swiss)
+(defpackage #:swiss
   (:use #:cl
 	#:alexandria
-	#:serapeum
-	#:cl-permutation)
-  (:shadowing-import-from :alexandria "COMPOSE")
-  (:export #:pair
-	   #:pair2))
+	#:serapeum)
+  (:export #:pair))

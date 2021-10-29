@@ -1,0 +1,10 @@
+(defpackage #:ctj.lib.round-robin
+  (:nicknames #:lib.round-robin)
+  (:local-nicknames (#:a #:alexandria)
+		    (#:s #:serapeum))
+  (:use #:cl
+	#:alexandria
+	#:serapeum
+	#:cl-permutation)
+  (:shadowing-import-from :alexandria "COMPOSE")
+  (:export #:pair))

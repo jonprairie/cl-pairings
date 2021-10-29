@@ -15,8 +15,7 @@
     :components ((:file "package")
 		 (:file "build-round-table")
 		 (:file "swiss-weights")
-		 ;; (:file "swiss")
-		 ))
+		 (:file "swiss")))
    (:module
     "round-robin"
     :components ((:file "package")

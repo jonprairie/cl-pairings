@@ -1,56 +1,27 @@
 (in-package #:swiss)
 
 
-(defun pair (data-table n)
-  (mvlet* ((final-table bye-index (add-bye data-table))
-	   (pair-weights (assign-weights final-table))
-	   (lgf (lib.lemon-graph:build-lgf (length final-table) pair-weights)))
-    (~> (lib.lemon-graph:get-max-weighted-matching lgf)
-	(mapcar (op (modify-bye _1 bye-index)) _)
-	(partition #'is-not-bye _))))
+(defun pair (game-list player-list not-playing-list)
+  (mvlet* ((round-table (build-round-table player-list game-list not-playing-list))
+	   (pair-weights (assign-weights round-table))
+	   (lgf (lemon-graph:build-lgf (length round-table) pair-weights)))
+    (~> (lemon-graph:get-max-weighted-matching lgf)
+	(make-games-from-pairs _ round-table))))
 
-;; this needs to happen here because when we build a matching later we don't account
-;; for the "leftover" player if they've already had a bye
-(defun add-bye (data-table)
-  "add an entry to data-table for the bye if the number of players is odd,
-modifying each row's :opps value to include the bye index if they've previously had a bye."
-  (if (oddp (length data-table))
-      (let ((player-index (length data-table))
-	    (opps)
-	    (color-pref 0)
-	    (bye)
-	    (rating 2000)
-	    (score 0))
-	(loop for p in data-table
-	      do (when (getf p :bye)
-		   (setf opps (append1 opps (getf p :index)))))
-	(values
-	 (append1
-	  (loop for p in data-table
-		collect
-		(let ((new-opps (getf p :opps)))
-		  (when (getf p :bye)
-		    (setf (getf p :opps) (append1 new-opps player-index)))
-		  p))
-	  (list :index player-index
-		:color-pref color-pref
-		:bye bye
-		:rating rating
-		:opps opps
-		:score score
-		:is-bye t))
-	 player-index))
-      data-table))
+(defun make-games-from-pairs (pair-list round-table)
+  (loop for pair in pair-list
+	collect (make-game-from-pair pair round-table)))
 
-(defun modify-bye (pair bye-index)
-  (if bye-index
-      (cond
-	((= (first pair) bye-index)
-	 (list (second pair) nil))
-	((= (second pair) bye-index)
-	 (list (first pair) nil))
-	(t pair))
-      pair))
+(defun make-game-from-pair (pair round-table)
+  (let* ((index1 (get-white pair))
+	 (index2 (get-black pair))
+	 (pd1 (get-pd-by-index index1 round-table))
+	 (pd2 (get-pd-by-index index2 round-table))
+	 (is-bye-1 (getf pd1 :is-bye))
+	 (is-bye-2 (getf pd2 :is-bye)))
+    (cond
+      (is-bye-1 (bye index2 nil))
+      (is-bye-2 (bye index1 nil))
+      (t (game index1 index2 nil)))))
 
-(defun is-not-bye (pair)
-  (and (first pair) (second pair)))
+

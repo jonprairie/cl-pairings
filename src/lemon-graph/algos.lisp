@@ -34,4 +34,4 @@
       (cffi:foreign-free list1)
       (cffi:foreign-free (cffi:mem-ref list2 :pointer))
       (cffi:foreign-free list2)
-      (cffi:foreign-free len))))
+      (cffi:foreign-free len)))

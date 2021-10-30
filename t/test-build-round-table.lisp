@@ -5,28 +5,28 @@
 
 (define-test game-t
   :parent build-round-table-suite
-  (let ((g (s:game 0 1 :white-win))
+  (let ((g (game 0 1 :white-win))
 	(r (list :draw :white-win :black-win)))
-    (true (s:is-game? g))
-    (false (s:is-bye? g))
-    (true (member (s:get-result-g g) r))
-    (is = 0 (s:get-white (s:get-pair g)))
-    (is = 1 (s:get-black (s:get-pair g)))))
+    (true (is-game? g))
+    (false (is-bye? g))
+    (true (member (get-result-g g) r))
+    (is = 0 (get-white (get-pair g)))
+    (is = 1 (get-black (get-pair g)))))
 
 (define-test bye-t
   :parent build-round-table-suite
-  (let ((b (s:bye 0 :white-win))
+  (let ((b (bye 0 :white-win))
 	(r (list :draw :white-win :black-win)))
-    (true (s:is-bye? b))
-    (false (s:is-game? b))
-    (true (member (s:get-result-b b) r))
-    (is = 0 (s:get-pl b))))
+    (true (is-bye? b))
+    (false (is-game? b))
+    (true (member (get-result-b b) r))
+    (is = 0 (get-pl b))))
 
 (define-test player-t
   :parent build-round-table-suite
-  (let ((pl (s:player 0 2500)))
-    (is = 0 (s:get-index-pl pl))
-    (is = 2500 (s:get-rating pl))))
+  (let ((pl (player 0 2500)))
+    (is = 0 (get-index-pl pl))
+    (is = 2500 (get-rating pl))))
 
 (define-test build-round-table-t
   :parent build-round-table-suite)
@@ -35,8 +35,8 @@
 (define-test brt-happy-path
   :parent build-round-table-t
   (let* ((max-pl 11) 			; no bye
-	 (pl (loop for pl from 0 to max-pl collect (s:player pl 2500)))
-	 (gl (append (loop for pl from 0 to max-pl collect (s:game pl (mod (1+ pl) (1+ max-pl)) :white-win))))
+	 (pl (loop for pl from 0 to max-pl collect (player pl 2500)))
+	 (gl (append (loop for pl from 0 to max-pl collect (game pl (mod (1+ pl) (1+ max-pl)) :white-win))))
 	 (rt (s::build-round-table pl gl nil))
 	 (rt-len (length rt)))
     ;; each player should have one white and one black game, so color-pref should be 0

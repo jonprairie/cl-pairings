@@ -1,26 +1,7 @@
 (in-package #:swiss)
 
-(defun game (p1-n p2-n result)
-  (list :game (cons p1-n p2-n) result))
-
-(defun is-game? (g) (eql (first g) :game))
-(defun get-pair (g) (second g))
-(defun get-white (pair) (car pair))
-(defun get-black (pair) (cdr pair))
-(defmethod get-result-g (g) (third g))
-
-(defun bye (p result)
-  (list :bye p result))
-
-(defun is-bye? (b) (eql (first b) :bye))
-(defun get-pl (b) (second b))
-(defun get-result-b (b) (third b))
-
-(defun player (p-n rating)
-  (list p-n rating))
-
-(defun get-index-pl (pl) (first pl))
-(defun get-rating (pl) (second pl))
+(defun get-pd-by-index (index round-table)
+  (nth index round-table))
 
 (defun basic-player-detail (i rating bye)
   (list :index i :color-pref 0 :color-seq nil :bye nil :rating rating :opps nil :score 0 :is-bye bye))

@@ -6,6 +6,7 @@
   :serial t
   :components
   ((:file "package")
+   (:file "cl-pairings")
    (:module
     "lemon-graph"
     :components ((:file "package")

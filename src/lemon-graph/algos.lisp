@@ -3,12 +3,15 @@
 
 (defparameter *lemon-library* nil)
 
-
 (defun setup-lemon-library ()
   (unless *lemon-library*
     (cffi:define-foreign-library liblemonc
       (t (:default "liblemonc")))
-    (setf *lemon-library* (cffi:use-foreign-library liblemonc))))
+    (let ((path (uiop:getcwd))) 	; this is a weird hack to resolve an issue with SLIME not being able to load the DLL on Windows
+      (uiop:chdir "/")
+      (cffi:use-foreign-library liblemonc)
+      (uiop:chdir path))
+    (setf *lemon-library* t)))
 
 (defun build-lgf (node-num edges)
   (format nil "@nodes~%label~%~{~a~%~}~%@edges~%        weights~%~{~{~3a ~3a ~$~}~%~}"
@@ -27,11 +30,11 @@
     (cffi:foreign-funcall "getMatching" :pointer list1 :pointer list2 :pointer len :string lgf)
     (prog1 
 	(loop for i from 0 to (1- (cffi:mem-ref len :int))
-	      collect (list
+	      collect (cons
 		       (cffi:mem-aref (cffi:mem-ref list1 :pointer) :int i)
 		       (cffi:mem-aref (cffi:mem-ref list2 :pointer) :int i)))
       (cffi:foreign-free (cffi:mem-ref list1 :pointer))
       (cffi:foreign-free list1)
       (cffi:foreign-free (cffi:mem-ref list2 :pointer))
       (cffi:foreign-free list2)
-      (cffi:foreign-free len)))
+      (cffi:foreign-free len))))

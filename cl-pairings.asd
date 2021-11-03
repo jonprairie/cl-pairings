@@ -31,4 +31,5 @@
   :serial t
   :components
   ((:file "package")
-   (:file "test-build-round-table")))
+   (:file "test-build-round-table")
+   (:file "test-swiss")))

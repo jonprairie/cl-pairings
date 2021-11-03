@@ -18,7 +18,7 @@
       (pushnew bye-index (getf pd :opps))
       (pushnew  p-n (getf (aref player-details bye-index) :opps)))))
 
-(defun handle-game-player (g color player-details)
+(defun handle-game-by-player (g color player-details)
   (let* ((result (get-result-g g))
 	 (pairing (get-pair g))
 	 (p-n (econd ((eql color :white) (get-white pairing))
@@ -42,8 +42,8 @@
     (push color (getf pd :color-seq))))
 
 (defun handle-game (g player-details)
-  (handle-game-player g :white player-details)
-  (handle-game-player g :black player-details))
+  (handle-game-by-player g :white player-details)
+  (handle-game-by-player g :black player-details))
 
 ;; TODO: implement not-playing-list
 (defun build-round-table (player-list game-list not-playing-list)

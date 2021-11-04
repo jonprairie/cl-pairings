@@ -7,6 +7,9 @@
 (defun is-game? (g) (eql (first g) :game))
 (defun get-pair (g) (second g))
 (defmethod get-result-g (g) (third g))
+(defun player-in-game (p-n g)
+  (or (= p-n (get-white (get-pair g)))
+      (= p-n (get-black (get-pair g)))))
 
 (defun bye (p result)
   (list :bye p result))
@@ -21,6 +24,6 @@
 (defun get-index-pl (pl) (first pl))
 (defun get-rating (pl) (second pl))
 
-(defun pair (pl1 pl2) (cons pl1 pl2))
+(defun make-pair (pl1 pl2) (cons pl1 pl2))
 (defun get-white (pair) (car pair))
 (defun get-black (pair) (cdr pair))

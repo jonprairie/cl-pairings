@@ -1,5 +1,6 @@
 (defpackage #:round-robin
   (:use #:cl
 	#:alexandria
-	#:serapeum)
+	#:serapeum
+	#:cl-pairings)
   (:export #:pair))

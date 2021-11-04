@@ -32,4 +32,5 @@
   :components
   ((:file "package")
    (:file "test-build-round-table")
-   (:file "test-swiss")))
+   (:file "test-swiss")
+   (:file "test-rr")))

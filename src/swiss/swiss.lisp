@@ -23,5 +23,3 @@
       (is-bye-1 (bye index2 nil))
       (is-bye-2 (bye index1 nil))
       (t (game index1 index2 nil)))))
-
-

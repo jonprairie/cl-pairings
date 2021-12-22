@@ -1,5 +1,6 @@
 (in-package #:round-robin)
 
+
 (defun pair (n rnd)
   (mvlet* ((normalized-n bye? (even-up n))
 	   (bye-index (1- normalized-n)))

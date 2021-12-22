@@ -21,7 +21,10 @@
     "round-robin"
     :components ((:file "package")
     		 (:file "round-robin")))
-   ))
+   (:module
+    "match"
+    :components ((:file "package")
+		 (:file "match")))))
 
 (asdf:defsystem #:cl-pairings/test
   :name "cl-pairings/test"

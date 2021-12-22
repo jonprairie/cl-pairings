@@ -113,5 +113,5 @@
 		     (incf (nth black num-player-blacks))))))
     (loop for i from 0 to (1- n) do (is = rnds (nth i num-player-games)))
     (loop for i from 0 to (1- n) do (is = 0 (nth i num-player-byes)))
-    (loop for i from 0 to (1- n) do (true (<= (abs (- (/ (- rnds num-legs) 2) (nth i num-player-whites))) 1)))
-    (loop for i from 0 to (1- n) do (true (<= (abs (- (/ (- rnds num-legs) 2) (nth i num-player-blacks))) 1)))))
+    (loop for i from 0 to (1- n) do (is = (/ rnds 2) (nth i num-player-whites)))
+    (loop for i from 0 to (1- n) do (is = (/ rnds 2) (nth i num-player-blacks)))))

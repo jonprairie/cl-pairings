@@ -8,7 +8,7 @@
   (list :index i :color-pref 0 :color-seq nil :bye nil :rating rating :opps nil :score 0 :is-bye bye))
 
 (defun handle-bye (b player-details has-bye bye-index)
-  (let* ((p-n (get-index-pl b))
+  (let* ((p-n (get-pl b))
 	 (result (get-result-b b))
 	 (pd (aref player-details p-n)))
     (setf (getf pd :bye) t)

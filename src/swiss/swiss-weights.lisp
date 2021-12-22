@@ -14,11 +14,14 @@
 
 (defun assign-weights (data-table)
   (let ((pairing-weights))
-    (map-permutations 
+    (map-combinations 
      (lambda (p)
-       (let ((f (first p))
-	     (s (second p)))
-	 (push (list (getf f :index) (getf s :index) (assign-weight f s))
+       (let* ((f (first p))
+	      (s (second p))
+	      (w1 (assign-weight f s))
+	      (w2 (assign-weight s f))
+	      (final-weight (if (> w1 w2) w1 w2)))
+	 (push (list (getf f :index) (getf s :index) final-weight)
 	       pairing-weights)))
      data-table
      :length 2)

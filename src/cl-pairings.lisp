@@ -27,3 +27,29 @@
 (defun make-pair (pl1 pl2) (cons pl1 pl2))
 (defun get-white (pair) (car pair))
 (defun get-black (pair) (cdr pair))
+
+(defun get-score-from-games (pl games)
+  (let ((score 0))
+  (loop for g in games
+        do (cond
+             ((= pl (get-white (get-pair g)))
+              (cond
+               ((eql (get-result-g g) :white-win)
+                (incf score 1))
+               ((eql (get-result-g g) :draw)
+                (incf score .5))))
+             ((= pl (get-black (get-pair g)))
+              (cond
+               ((eql (get-result-g g) :black-win)
+                (incf score 1))
+               ((eql (get-result-g g) :draw)
+                (incf score .5))))))
+        score))
+
+(defun print-pairings-detail (pairings gl)
+  (loop for g in pairings do
+    (let* ((pair (get-pair g))
+           (w (get-white pair))
+           (b (get-black  pair)))
+      (format t "~a vs ~a, ~a ~a~%" w b (get-score-from-games w gl) (get-score-from-games b gl))
+      pairings)))

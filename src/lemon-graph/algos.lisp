@@ -5,7 +5,7 @@
 
 (defun setup-lemon-library ()
   (unless *lemon-library*
-    (cffi:define-foreign-library liblemonc
+    (cffi:define-foreign-library (liblemonc :search-path (merge-pathnames "src/lemon-graph/lib/" (asdf:system-source-directory :cl-pairings)))
       (t (:default "liblemonc")))
     (let ((path (uiop:getcwd))) 	; this is a weird hack to resolve an issue with SLIME not being able to load the DLL on Windows
       (uiop:chdir "/")

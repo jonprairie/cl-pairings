@@ -18,9 +18,6 @@
 	  (loop for n from 0 to (1- node-num) collect n)
 	  edges))
 
-(defun build-lgf% (node-num edges)
-  (save-graph (build-lgf node-num edges)))
-
 (defun get-max-weighted-matching (lgf)
   "call out to liblemonc to calculate maximum weighted matching"
   (setup-lemon-library)
